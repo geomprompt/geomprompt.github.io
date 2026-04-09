@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="title" content="GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth">
+  <meta name="description" content="GeomPrompt is a lightweight geometric prompting module for frozen RGB-D segmentation under missing and degraded depth, improving robustness and efficiency.">
+  <meta name="keywords" content="RGB-D segmentation, missing depth, degraded depth, multimodal perception, geometric prompting, GeomPrompt">
+  <meta name="author" content="Krishna Jaganathan, Patricio Vela">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Georgia Institute of Technology">
+  <meta property="og:title" content="GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth">
+  <meta property="og:description" content="Task-driven geometric prompting for robust RGB-D semantic segmentation under missing and corrupted depth.">
+  <meta property="og:url" content="https://geomprompt.github.io">
+  <meta property="og:image" content="https://geomprompt.github.io/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GeomPrompt project page preview">
+  <meta property="article:published_time" content="2026-01-01T00:00:00.000Z">
+  <meta property="article:author" content="Krishna Jaganathan">
+  <meta property="article:author" content="Patricio Vela">
+  <meta property="article:section" content="Computer Vision">
+  <meta property="article:tag" content="RGB-D">
+  <meta property="article:tag" content="Semantic Segmentation">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth">
+  <meta name="twitter:description" content="Lightweight geometric prompting for frozen RGB-D segmenters under sensor failure.">
+  <meta name="twitter:image" content="https://geomprompt.github.io/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="GeomPrompt project page preview">
+
+  <meta name="citation_title" content="GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth">
+  <meta name="citation_author" content="Jaganathan, Krishna">
+  <meta name="citation_author" content="Vela, Patricio">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="CVPR 2026 URVIS Workshop">
+  <meta name="citation_pdf_url" content="https://geomprompt.github.io/static/pdfs/geomprompt-paper.pdf">
+
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <link rel="canonical" href="https://geomprompt.github.io">
+
+  <title>GeomPrompt</title>
+
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="static/images/favicon-180x180.png">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth",
+    "description": "GeomPrompt and GeomPrompt-Recovery provide lightweight geometric prompting for frozen RGB-D segmentation under missing and corrupted depth.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Krishna Jaganathan",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Georgia Institute of Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Patricio Vela",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Georgia Institute of Technology"
+        }
+      }
+    ],
+    "datePublished": "2026-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CVPR 2026 URVIS Workshop"
+    },
+    "url": "https://geomprompt.github.io",
+    "image": "https://geomprompt.github.io/static/images/social_preview.png",
+    "keywords": ["RGB-D", "Semantic Segmentation", "Missing Modality", "GeomPrompt"],
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+<body>
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-widescreen">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth</h1>
+              <div class="publication-venue-main">CVPR 2026 URVIS Workshop</div>
+              <div class="is-size-5 publication-authors publication-authors-main">
+                <span class="author-block">Krishna Jaganathan,</span>
+                <span class="author-block">Patricio Vela</span>
+              </div>
+              <div class="publication-affiliation-main">Georgia Institute of Technology</div>
+
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="static/pdfs/geomprompt-paper.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark is-disabled-link" aria-disabled="true" tabindex="-1">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code (Coming Soon)</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark is-disabled-link" aria-disabled="true" tabindex="-1">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv (Coming Soon)</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <figure class="figure-card">
+          <img src="static/images/fig1_teaser.png" alt="GeomPrompt teaser figure" loading="lazy">
+          <figcaption>
+            <em>GeomPrompt</em> synthesizes a geometric prompt from an RGB image for downstream semantic segmentation on a frozen RGB-D segmenter in the case of missing depth. <em>GeomPrompt-Recovery</em> extends this by allowing for corrections on existing degraded depth inputs.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multimodal perception systems for robotics and embodied AI often assume reliable RGB-D sensing, but in practice, depth is frequently missing, noisy, or corrupted. We thus present GeomPrompt, a lightweight cross-modal adaptation module that synthesizes a task-driven geometric prompt from RGB alone for the fourth channel of a frozen RGB-D semantic segmentation model, without depth supervision. We further introduce GeomPrompt-Recovery, an adaptation module that compensates for degraded depth by predicting the fourth channel correction relevant for the frozen segmenter. Both modules are trained solely with downstream segmentation supervision, enabling recovery of the geometric prior useful for segmentation, rather than estimating depth signals. On SUN RGB-D, GeomPrompt improves over RGB-only inference by +6.1 mIoU on DFormer and +3.0 mIoU on GeminiFusion, while remaining competitive with strong monocular depth estimators. For degraded depth, GeomPrompt-Recovery consistently improves robustness, yielding gains up to +3.6 mIoU under severe depth corruptions. GeomPrompt is also substantially more efficient than monocular depth baselines, reaching 7.8 ms latency versus 38.3 ms and 71.9 ms. These results suggest that task-driven geometric prompting is an efficient mechanism for cross-modal compensation under missing and degraded depth inputs in RGB-D perception.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-widescreen method-container">
+        <h2 class="title is-3 has-text-centered">Method Overview</h2>
+        <figure class="figure-card architecture-combined">
+          <div class="architecture-pair">
+            <div class="architecture-panel architecture-panel-a">
+              <img src="static/images/fig2a_gp_arch.png" alt="GeomPrompt architecture" loading="lazy">
+              <p class="architecture-subcaption">(a) Overview of the GeomPrompt architecture.</p>
+            </div>
+            <div class="architecture-panel architecture-panel-b">
+              <img src="static/images/fig2b_gpr_arch.png" alt="GeomPrompt-Recovery architecture" loading="lazy">
+              <p class="architecture-subcaption">(b) Depth handling in GeomPrompt-Recovery.</p>
+            </div>
+          </div>
+          <figcaption>Model architecture diagrams. (a) Overview of the GeomPrompt architecture. (b) Depth handling in GeomPrompt-Recovery.</figcaption>
+        </figure>
+        <div class="columns mt-4">
+          <div class="column">
+            <div class="method-card">
+              <h3>Missing Depth (GeomPrompt)</h3>
+              <p>Given RGB input \(x\), the module predicts a task-driven prompt \(p^*\) and feeds \(S(x, p^*)\) into a frozen RGB-D segmenter.</p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="method-card">
+              <h3>Degraded Depth (GeomPrompt-Recovery)</h3>
+              <p>Given RGB and corrupted depth \(\tilde{d}\), the module predicts a bounded residual correction and produces a recovered prompt used by the same frozen segmenter.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped is-hoverable metrics-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>DFormer mIoU</th>
+                <th>DFormer PA</th>
+                <th>GeminiFusion mIoU</th>
+                <th>GeminiFusion PA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>GT Depth (Upper Bound)</td><td>51.2</td><td>83.4</td><td>52.7</td><td>82.8</td></tr>
+              <tr><td>RGB-only</td><td>41.7</td><td>78.3</td><td>43.4</td><td>78.8</td></tr>
+              <tr><td>Depth Anything 2</td><td>44.0</td><td>80.8</td><td>47.7</td><td>81.4</td></tr>
+              <tr><td>Depth Anything 2 [Hypersim]</td><td>47.5</td><td>81.8</td><td>44.5</td><td>79.6</td></tr>
+              <tr><td>Metric3Dv2</td><td>46.6</td><td>81.8</td><td>46.6</td><td>80.6</td></tr>
+              <tr class="highlight-row"><td>GeomPrompt</td><td>47.8</td><td>81.6</td><td>46.4</td><td>80.3</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="result-summary">GeomPrompt improves over RGB-only by <strong>+6.1 mIoU</strong> on DFormer and <strong>+3.0 mIoU</strong> on GeminiFusion.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
+        <div class="qualitative-stack">
+          <figure class="figure-card qualitative-figure">
+            <img src="static/images/fig5_qualitative_twoframe.png" alt="Qualitative segmentation comparisons" loading="lazy">
+            <figcaption>Qualitative comparison of segmentation outputs and geometric representations.</figcaption>
+          </figure>
+          <figure class="figure-card qualitative-figure">
+            <img src="static/images/fig6_prompt_vs_depth.png" alt="RGB depth prompt qualitative grid" loading="lazy">
+            <figcaption>Visual comparison of our synthesized geometric prompt against the original RGB input and ground truth depth.</figcaption>
+          </figure>
+          <figure class="figure-card qualitative-figure">
+            <img src="static/images/fig7_recovery_degradation.png" alt="GeomPrompt-Recovery degradation qualitative grid" loading="lazy">
+            <figcaption>GeomPrompt-Recovery under simulated depth failures.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Recovery Under Degraded Depth</h2>
+        <figure class="figure-card">
+          <img src="static/images/fig3_recovery_eval.png" alt="Recovery evaluation under depth degradation" loading="lazy">
+          <figcaption>
+            Degraded depth vs. our recovered prompt across severities and degradation types.
+          </figcaption>
+        </figure>
+        <div class="table-container mt-4">
+          <table class="table is-fullwidth is-striped metrics-table">
+            <thead>
+              <tr>
+                <th>Degradation</th>
+                <th>Mean mIoU Gain</th>
+                <th>High-Severity Gain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Quantization</td><td>+1.4</td><td>+2.3</td></tr>
+              <tr><td>Dropout</td><td>+2.0</td><td>+1.5</td></tr>
+              <tr><td>Noise</td><td>+2.5</td><td>+3.6</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-paper-caption">Recovered gains across different degradation types.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Efficiency</h2>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="table-container">
+              <table class="table is-fullwidth is-striped metrics-table">
+                <thead>
+                  <tr><th>Model</th><th>Latency (ms)</th><th>GFLOPs</th><th>Params (M)</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Depth Anything 2</td><td>38.3</td><td>280.7</td><td>97.5</td></tr>
+                  <tr><td>Metric3Dv2</td><td>71.9</td><td>315.2</td><td>37.5</td></tr>
+                  <tr class="highlight-row"><td>GeomPrompt</td><td>7.8</td><td>44.0</td><td>23.4</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-paper-caption">Efficiency comparison across methods. Lower is better.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Ablations and Controls</h2>
+        <figure class="figure-card mt-4">
+          <img src="static/images/fig4_ablations.png" alt="Training ablations mIoU plot" loading="lazy">
+          <figcaption>mIoU of training ablations vs. our baseline.</figcaption>
+        </figure>
+        <div class="table-container mt-5">
+          <table class="table is-fullwidth is-striped metrics-table">
+            <thead>
+              <tr><th>Method</th><th>DFormer</th><th>GeminiFusion</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>RGB-only</td><td>41.7</td><td>43.4</td></tr>
+              <tr><td>Luminance Gray</td><td>25.4</td><td>43.2</td></tr>
+              <tr><td>Laplacian Edges</td><td>40.3</td><td>42.4</td></tr>
+              <tr><td>Scharr</td><td>39.8</td><td>43.0</td></tr>
+              <tr><td>Canny</td><td>38.6</td><td>43.5</td></tr>
+              <tr class="highlight-row"><td>GeomPrompt</td><td>47.8</td><td>46.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-paper-caption">Naive baselines and references, separated by segmenter. Best results in each segmenter group are in bold.</p>
+      </div>
+    </section>
+
+    <section class="section hero">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Conclusion</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this work, we presented GeomPrompt and GeomPrompt-Recovery as lightweight cross-modal adaptation modules for RGB-D perception under missing and degraded depth. Instead of reconstructing metric depth, the method learns task-driven geometric prompts from downstream supervision alone, enabling a frozen multimodal segmenter to remain effective when one sensing stream is unavailable or corrupted. GeomPrompt improves over RGB-only inference while remaining competitive with monocular depth estimators, and GeomPrompt-Recovery improves robustness under simulated sensor failures. These results suggest that task-driven cross-modal compensation can be a practical strategy for robust multimodal segmentation in embodied systems, especially when real-world deployment requires efficiency and graceful degradation under unreliable sensing. Future work could study whether this prompting view extends to other multimodal perception tasks useful for embodied AI, such as mapping, navigation, or manipulation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="bibtex-header">
+          <h2 class="title">BibTeX</h2>
+          <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+            <i class="fas fa-copy"></i>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code"><code>@article{jaganathan2026geomprompt,
+  title={GeomPrompt: Geometric Prompt Learning for RGB-D Semantic Segmentation Under Missing and Degraded Depth},
+  author={Jaganathan, Krishna and Vela, Patricio},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2026},
+  url={https://geomprompt.github.io}
+}</code></pre>
+      </div>
+    </section>
+    -->
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
