@@ -368,7 +368,7 @@ body {
 
 /* Footer Improvements */
 .footer {
-  background: var(--background-secondary);
+  background: var(--background-primary);
   border-top: 1px solid var(--border-color);
   padding: 3rem 1.5rem;
 }
@@ -407,9 +407,15 @@ code {
 }
 
 /* BibTeX Section Improvements */
-.bibtex-header {
+.citation-note {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin: -0.5rem auto 1.5rem;
+}
+
+.bibtex-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 1rem;
 }
